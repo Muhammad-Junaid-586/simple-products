@@ -3,8 +3,9 @@ import React from 'react';
 
 
 
+
 export const getData = async () => {
-  const response = await fetch(`htpps://product-fullstacknextjs-one.vercel.app/api/products`);
+  const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/products`);
   const data = await response.json();
   return data.data;
 };
