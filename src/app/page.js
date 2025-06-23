@@ -1,11 +1,16 @@
 import Link from 'next/link';
 import React from 'react';
 
+const baseUrl = process.env.VERCEL_URL
+  ? `https://${process.env.VERCEL_URL}`  // Production
+  : 'http://localhost:3000';              // Local dev
+
 export const getData = async () => {
-  const response = await fetch('http://localhost:3000/api/products');
+  const response = await fetch(`${baseUrl}/api/products`);
   const data = await response.json();
   return data.data;
 };
+
 
 const ProductCard = ({ product }) => {
   const { name, price, category, discount, description, _id } = product;

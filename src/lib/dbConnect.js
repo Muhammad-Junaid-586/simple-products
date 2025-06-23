@@ -1,6 +1,10 @@
 // lib/dbConnect.js
 import mongoose from 'mongoose';
-import { mongoURL } from './db'; // Adjust if your config is elsewhere
+// import { mongoURL } from './db'; // Adjust if your config is elsewhere
+require('dotenv').config();
+
+const mongoURL = process.env.MONGODB_URI;
+
 
 let isConnected = false;
 
