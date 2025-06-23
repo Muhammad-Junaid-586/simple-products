@@ -1,12 +1,10 @@
 import Link from 'next/link';
 import React from 'react';
 
-const baseUrl = process.env.VERCEL_URL
-  ? `https://${process.env.VERCEL_URL}`  // Production
-  : 'http://localhost:3000';              // Local dev
+
 
 export const getData = async () => {
-  const response = await fetch(`${baseUrl}/api/products`);
+  const response = await fetch(`htpps://product-fullstacknextjs-one.vercel.app/api/products`);
   const data = await response.json();
   return data.data;
 };
@@ -22,7 +20,7 @@ const ProductCard = ({ product }) => {
     : priceNum.toFixed(2);
 
   return (
-    <div className="bg-white rounded-xl shadow-lg hover:shadow-2xl transition-shadow duration-500 flex flex-col overflow-hidden border border-transparent hover:border-blue-400">
+    <div className="bg-white rounded-xl shadow-lg hover:shadow-2xl transition-shadow duration-500 flex flex-col  border border-transparent hover:border-blue-400">
       {/* Product Image placeholder */}
       <div className="h-48  bg-gradient-to-tr from-blue-100 to-blue-300 flex items-center justify-center text-6xl font-bold text-blue-600 select-none">
         {name ? name.charAt(0).toUpperCase() : "P"}
@@ -41,11 +39,11 @@ const ProductCard = ({ product }) => {
           {description || 'No description available.'}
         </p>
 
-        <div className="mt-auto flex items-center justify-between">
+        <div className="mt-auto flex items-center gap-2">
           {discountNum > 0 ? (
             <div className="flex items-baseline space-x-3">
               <span className="text-gray-400 line-through text-lg">${priceNum.toFixed(2)}</span>
-              <span className="text-green-600 font-extrabold text-3xl">${discountedPrice}</span>
+              <span className="text-green-600 font-extrabold text-xl">${discountedPrice}</span>
               <span className="bg-green-100 block text-green-800 text-xs font-semibold px-3 py-1 rounded-full select-none">
                 {discountNum}% OFF
               </span>
@@ -54,12 +52,12 @@ const ProductCard = ({ product }) => {
             <span className="text-gray-900 font-extrabold text-3xl">${priceNum.toFixed(2)}</span>
           )}
 
+        </div>
           <Link href={`/products/${_id}`}>
             <button className="ml-4 bg-blue-600 text-white px-4 py-2 rounded-lg font-semibold shadow-md hover:bg-blue-700 transition duration-300">
               Edit
             </button>
           </Link>
-        </div>
       </div>
     </div>
   );
