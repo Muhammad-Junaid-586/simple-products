@@ -1,15 +1,14 @@
-import Link from 'next/link';
-import React from 'react';
-
-
-
+export const dynamic = "force-dynamic";
+import Link from "next/link";
+import React from "react";
 
 export const getData = async () => {
-  const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/products`);
+  const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/products`, {
+    cache: "no-store",
+  });
   const data = await response.json();
   return data.data;
 };
-
 
 const ProductCard = ({ product }) => {
   const { name, price, category, discount, description, _id } = product;
@@ -21,23 +20,22 @@ const ProductCard = ({ product }) => {
     : priceNum.toFixed(2);
 
   return (
-    <div className="bg-white rounded-xl shadow-lg hover:shadow-2xl transition-shadow duration-500 flex flex-col  border border-transparent hover:border-blue-400">
-      {/* Product Image placeholder */}
-      <div className="h-48  bg-gradient-to-tr from-blue-100 to-blue-300 flex items-center justify-center text-6xl font-bold text-blue-600 select-none">
+    <div className="bg-white rounded-xl shadow-lg hover:shadow-2xl transition-shadow duration-500 flex flex-col border border-transparent hover:border-blue-400">
+      <div className="h-48 bg-gradient-to-tr from-blue-100 to-blue-300 flex items-center justify-center text-6xl font-bold text-blue-600 select-none">
         {name ? name.charAt(0).toUpperCase() : "P"}
       </div>
 
       <div className="p-6 flex flex-col flex-grow">
         <h2 className="text-2xl font-semibold mb-1 text-gray-900 truncate" title={name}>
-          {name || 'Unnamed Product'}
+          {name || "Unnamed Product"}
         </h2>
 
         <p className="text-sm text-indigo-600 font-medium mb-3 uppercase tracking-wide">
-          {category || 'Uncategorized'}
+          {category || "Uncategorized"}
         </p>
 
         <p className="text-gray-700 text-base mb-6 flex-grow line-clamp-4 whitespace-normal">
-          {description || 'No description available.'}
+          {description || "No description available."}
         </p>
 
         <div className="mt-auto flex items-center gap-2">
@@ -52,13 +50,13 @@ const ProductCard = ({ product }) => {
           ) : (
             <span className="text-gray-900 font-extrabold text-3xl">${priceNum.toFixed(2)}</span>
           )}
-
         </div>
-          <Link href={`/products/${_id}`}>
-            <button className="ml-4 bg-blue-600 text-white px-4 py-2 rounded-lg font-semibold shadow-md hover:bg-blue-700 transition duration-300">
-              Edit
-            </button>
-          </Link>
+
+        <Link href={`/products/${_id}`}>
+          <button className="mt-4 bg-blue-600 text-white px-4 py-2 rounded-lg font-semibold shadow-md hover:bg-blue-700 transition duration-300">
+            Edit
+          </button>
+        </Link>
       </div>
     </div>
   );
