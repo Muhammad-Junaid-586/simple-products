@@ -48,6 +48,7 @@ export default function EditProductForm(props) {
       const result = await response.json();
       if (result.success) {
         setMessage("✅ Product updated successfully!");
+        router.push("/"); // Redirect to homepage (or product list)
       } else {
         setMessage(result.error || "❌ Failed to update product.");
       }
